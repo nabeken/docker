@@ -39,6 +39,7 @@ RUN apt-get update && apt-get install -y \
 	iptables \
 	libapparmor-dev \
 	libcap-dev \
+	libdevmapper-dev \
 	libsqlite3-dev \
 	mercurial \
 	parallel \
@@ -54,13 +55,6 @@ RUN apt-get update && apt-get install -y \
 # Get lvm2 source for compiling statically
 RUN git clone -b v2_02_103 https://git.fedorahosted.org/git/lvm2.git /usr/local/lvm2
 # see https://git.fedorahosted.org/cgit/lvm2.git/refs/tags for release tags
-
-# Compile and install lvm2
-RUN cd /usr/local/lvm2 \
-	&& ./configure --enable-static_link \
-	&& make device-mapper \
-	&& make install_device-mapper
-# see https://git.fedorahosted.org/cgit/lvm2.git/tree/INSTALL
 
 # Install lxc
 ENV LXC_VERSION 1.0.7
