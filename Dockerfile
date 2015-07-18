@@ -66,7 +66,7 @@ RUN git clone -b v2_02_103 https://git.fedorahosted.org/git/lvm2.git /usr/local/
 # Install lxc
 ENV LXC_VERSION 1.1.2
 RUN mkdir -p /usr/src/lxc \
-	&& curl -sSL https://linuxcontainers.org/downloads/lxc/lxc-${LXC_VERSION}.tar.gz | tar -v -C /usr/src/lxc/ -xz --strip-components=1
+	&& curl -sSL https://linuxcontainers.org/downloads/lxc/lxc-${LXC_VERSION}.tar.gz | tar -v -C /usr/src/lxc/ -xz --strip-components=1 --no-same-owner
 RUN cd /usr/src/lxc \
 	&& ./configure \
 	&& make \
