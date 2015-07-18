@@ -1,0 +1,18 @@
+general:
+  artifacts:
+    - "output"
+
+machine:
+  services:
+    - docker
+
+dependencies:
+  override:
+    - mkdir output
+
+test:
+  override:
+    - docker build -t docker .
+    - docker run --privileged --name docker -e AUTO_GOPATH=1 -e DOCKER_BUILDTAGS=btrfs_noversion docker ./hack/make.sh dynbinary
+    - docker cp docker:/go/src/github.com/docker/docker/bundles/1.8.0-dev/dynbinary/docker-1.8.0-dev output/
+    - docker cp docker:/go/src/github.com/docker/docker/bundles/1.8.0-dev/dynbinary/dockerinit-1.8.0-dev output/
